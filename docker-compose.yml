@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: opera_db
+      POSTGRES_USER: opera_user
+      POSTGRES_PASSWORD: opera_pass
+    restart: unless-stopped
+
+  web:
+    build: .
+    volumes:
+      - static_volume:/app/staticfiles
+      - media_volume:/app/media
+    expose:
+      - 8000
+    environment:
+      - DEBUG=False
+      - SECRET_KEY=change-this-in-production-to-random-string
+      - ALLOWED_HOSTS=localhost,127.0.0.1
+      - DATABASE_URL=postgresql://opera_user:opera_pass@db:5432/opera_db
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - static_volume:/app/staticfiles
+      - media_volume:/app/media
+    depends_on:
+      - web
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:

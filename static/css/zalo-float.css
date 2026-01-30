@@ -1,0 +1,91 @@
+/* Floating Zalo Button */
+.zalo-float {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9998;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.zalo-button,
+.call-button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 18px;
+    border-radius: 50px;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.zalo-button {
+    background: linear-gradient(135deg, #0068FF 0%, #0180FF 100%);
+    color: white;
+}
+
+.zalo-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 104, 255, 0.6);
+}
+
+.call-button {
+    background: linear-gradient(135deg, #00C853 0%, #00E676 100%);
+    color: white;
+}
+
+.call-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 200, 83, 0.6);
+}
+
+.zalo-icon,
+.call-icon {
+    width: 28px;
+    height: 28px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.zalo-text,
+.call-text {
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .zalo-float {
+        bottom: 15px;
+        right: 15px;
+        gap: 10px;
+    }
+
+    .zalo-button,
+    .call-button {
+        padding: 10px 14px;
+        font-size: 13px;
+        min-width: 50px;
+        justify-content: center;
+    }
+
+    .zalo-icon,
+    .call-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 20px;
+    }
+
+    .zalo-text,
+    .call-text {
+        display: none;
+    }
+}

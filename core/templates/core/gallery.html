@@ -1,0 +1,55 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Thư viện ảnh - Hồ Gươm Opera{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/gallery.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="section-title">Thư viện ảnh & Video</h2>
+    <div class="gallery-grid">
+        {% for item in gallery_items %}
+        <div class="gallery-item" onclick="openModal({{ forloop.counter0 }})">
+            <img src="{{ item.image.url }}" alt="{{ item.title }}">
+        </div>
+        {% empty %}
+        <div class="gallery-item"></div>
+        <div class="gallery-item"></div>
+        <div class="gallery-item"></div>
+        <div class="gallery-item"></div>
+        <div class="gallery-item"></div>
+        <div class="gallery-item"></div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="imageModal" class="modal" onclick="closeModal()">
+    <span class="close-modal">&times;</span>
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <img id="modalImage" src="" alt="">
+        <div class="modal-info">
+            <h3 id="modalTitle"></h3>
+            <p id="modalDescription"></p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/gallery.js' %}"></script>
+<script>
+    initGallery([
+        {% for item in gallery_items %}
+        {
+            image: "{{ item.image.url }}",
+            title: "{{ item.title|escapejs }}",
+            description: "{{ item.description|escapejs }}"
+        }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    ]);
+</script>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <h1>Hồ Gươm Opera</h1>
+        <p>Trải nghiệm nghệ thuật opera đẳng cấp thế giới tại Hà Nội</p>
+        <a href="{% url 'events' %}" class="btn">Xem chương trình</a>
+    </div>
+</section>
+
+<div class="container">
+    <h2 class="section-title">Chương trình nổi bật</h2>
+    <div class="events-grid">
+        {% for event in featured_events %}
+        <div class="event-card">
+            {% if event.image %}
+            <div class="event-image">
+                <img src="{{ event.image.url }}" alt="{{ event.title }}">
+            </div>
+            {% else %}
+            <div class="event-image">{{ event.icon }}</div>
+            {% endif %}
+            <div class="event-content">
+                <div class="event-date">📅 {{ event.date|date:"d/m/Y - H:i" }}</div>
+                <h3 class="event-title">{{ event.title }}</h3>
+                <p class="event-description">{{ event.description|striptags|truncatewords:20 }}</p>
+                <a href="{% url 'event_detail' event.pk %}" class="btn">Chi tiết</a>
+            </div>
+        </div>
+        {% empty %}
+        <p>Chưa có chương trình nào.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

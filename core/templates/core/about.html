@@ -1,0 +1,37 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Giới thiệu - Hồ Gươm Opera{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="section-title">Giới thiệu về chúng tôi</h2>
+    
+    {% if about_content %}
+        {% for item in about_content %}
+        <div class="about-content">
+            {% if item.image %}
+            <div class="about-image">
+                <img src="{{ item.image.url }}" alt="{{ item.title }}">
+            </div>
+            {% else %}
+            <div class="about-image">🏛️</div>
+            {% endif %}
+            <div class="about-text">
+                <h3>{{ item.title }}</h3>
+                <div>{{ item.content|safe }}</div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+    <div class="about-content">
+        <div class="about-image">🏛️</div>
+        <div class="about-text">
+            <h3>Hồ Gươm Opera - Nơi nghệ thuật hội tụ</h3>
+            <p>Tọa lạc tại trung tâm Hà Nội, Hồ Gươm Opera là nhà hát opera đầu tiên tại Việt Nam mang đến những trải nghiệm nghệ thuật đẳng cấp quốc tế.</p>
+            <p>Với hệ thống âm thanh hiện đại, sân khấu chuyên nghiệp và đội ngũ nghệ sĩ tài năng, chúng tôi cam kết mang đến những buổi biểu diễn xuất sắc nhất cho khán giả Việt Nam.</p>
+            <p>Hồ Gươm Opera không chỉ là nơi biểu diễn opera cổ điển mà còn là không gian văn hóa nghệ thuật đa dạng với các chương trình âm nhạc, ballet và kịch nghệ đương đại.</p>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

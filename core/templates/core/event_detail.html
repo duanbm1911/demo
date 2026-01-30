@@ -1,0 +1,174 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{ event.title }} - Hồ Gươm Opera{% endblock %}
+
+{% block extra_css %}
+<style>
+    .event-detail {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .event-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .event-header h1 {
+        font-size: 2.5rem;
+        color: #16213e;
+        margin-bottom: 1rem;
+    }
+
+    .event-icon {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+    }
+
+    .event-main-image {
+        width: 100%;
+        max-height: 500px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-bottom: 2rem;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+
+    .event-info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+        padding: 2rem;
+        background: #f8f9fa;
+        border-radius: 10px;
+    }
+
+    .info-item {
+        text-align: center;
+    }
+
+    .info-label {
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 0.5rem;
+    }
+
+    .info-value {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #16213e;
+    }
+
+    .info-value.price {
+        color: #f39c12;
+    }
+
+    .event-description {
+        line-height: 1.8;
+        font-size: 1.1rem;
+        color: #555;
+        margin-bottom: 2rem;
+    }
+
+    .event-description h1,
+    .event-description h2,
+    .event-description h3 {
+        color: #16213e;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .event-description p {
+        margin-bottom: 1rem;
+    }
+
+    .event-description ul,
+    .event-description ol {
+        margin-left: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .back-button {
+        display: inline-block;
+        margin-bottom: 2rem;
+        color: #666;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .back-button:hover {
+        color: #f39c12;
+    }
+
+    .cta-section {
+        text-align: center;
+        padding: 3rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 10px;
+        color: white;
+        margin-top: 3rem;
+    }
+
+    .cta-section h2 {
+        margin-bottom: 1rem;
+    }
+
+    .cta-section p {
+        margin-bottom: 2rem;
+        font-size: 1.1rem;
+    }
+
+    .btn-white {
+        background: white;
+        color: #667eea;
+    }
+
+    .btn-white:hover {
+        background: #f8f9fa;
+        color: #764ba2;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <a href="{% url 'events' %}" class="back-button">← Quay lại danh sách</a>
+    
+    <div class="event-detail">
+        <div class="event-header">
+            <div class="event-icon">{{ event.icon }}</div>
+            <h1>{{ event.title }}</h1>
+        </div>
+
+        {% if event.image %}
+        <img src="{{ event.image.url }}" alt="{{ event.title }}" class="event-main-image">
+        {% endif %}
+
+        <div class="event-info-grid">
+            <div class="info-item">
+                <div class="info-label">📅 Ngày biểu diễn</div>
+                <div class="info-value">{{ event.date|date:"d/m/Y" }}</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">🕐 Giờ bắt đầu</div>
+                <div class="info-value">{{ event.date|date:"H:i" }}</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">💰 Giá vé</div>
+                <div class="info-value price">{{ event.price_min|floatformat:0 }}đ - {{ event.price_max|floatformat:0 }}đ</div>
+            </div>
+        </div>
+
+        <div class="event-description">
+            {{ event.description|safe }}
+        </div>
+
+        <div class="cta-section">
+            <h2>Quan tâm đến chương trình này?</h2>
+            <p>Liên hệ với chúng tôi để biết thêm thông tin và đặt vé</p>
+            <a href="{% url 'contact' %}" class="btn btn-white">Liên hệ ngay</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
