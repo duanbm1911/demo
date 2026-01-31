@@ -29,7 +29,7 @@ DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1,demo-kr669u7e.b4a.run').split(',')
 
-CSRF_TRUSTED_ORIGINS = ['https://demo-kr669u7e.b4a.run', 'demo-q10t.onrender.com']
+CSRF_TRUSTED_ORIGINS = ['https://demo-kr669u7e.b4a.run', 'https://demo-q10t.onrender.com']
 
 
 # Application definition
